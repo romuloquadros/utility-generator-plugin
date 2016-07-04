@@ -7,7 +7,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.core.commands.ExecutionEvent;
+import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
@@ -25,7 +27,7 @@ public class FixtureGeneratorClassLoader {
 	}
 
 	public String getAbsolutePath() {
-		IResource resource = Platform.getAdapterManager().getAdapter(compilationUnit, IResource.class);
+		IResource resource = getCompilationUnitResource();
 		return resource.getProject().getLocation().toFile().getAbsolutePath() + File.separator;
 	}
 
@@ -45,5 +47,15 @@ public class FixtureGeneratorClassLoader {
 		URLClassLoader classLoader = new URLClassLoader(urls, parentClassLoader);
 		return classLoader.loadClass(compilationUnit.findPrimaryType().getFullyQualifiedName());
 	}
+	
+	public void refresh() throws CoreException {
+		IResource resource = getCompilationUnitResource();
+		IProject project = resource.getProject();
+		IResource resourceProject = Platform.getAdapterManager().getAdapter(project, IResource.class);
+		resourceProject.refreshLocal(IResource.DEPTH_INFINITE, null);
+	}
 
+	private IResource getCompilationUnitResource() {
+		return Platform.getAdapterManager().getAdapter(compilationUnit, IResource.class);
+	}
 }

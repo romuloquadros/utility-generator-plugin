@@ -43,6 +43,8 @@ public class FixtureGeneratorHandler extends AbstractHandler {
 
 			classGenerator.generate(loader.loadSelectedClass());
 			
+			loader.refresh();
+			
 			MessageDialog.openInformation(window.getShell(), "Success", "Fixture generated.");
 		} catch (Exception e) {
 			MessageDialog.openInformation(window.getShell(), "Error", "Error while generating fixture. " + e.getMessage());
