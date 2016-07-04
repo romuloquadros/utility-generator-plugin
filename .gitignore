@@ -3,3 +3,5 @@
 .class
 .project
 .settings/
+/bin/
+/.classpath
