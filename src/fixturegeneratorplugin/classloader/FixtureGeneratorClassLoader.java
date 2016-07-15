@@ -16,6 +16,7 @@ import org.eclipse.core.runtime.Platform;
 import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.launching.JavaRuntime;
+import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.ui.handlers.HandlerUtil;
 
 public class FixtureGeneratorClassLoader {
@@ -23,7 +24,8 @@ public class FixtureGeneratorClassLoader {
 	private ICompilationUnit compilationUnit;
 
 	public FixtureGeneratorClassLoader(ExecutionEvent event) {
-		this.compilationUnit = (ICompilationUnit) HandlerUtil.getCurrentStructuredSelection(event).getFirstElement();
+		IStructuredSelection selection = (IStructuredSelection) HandlerUtil.getCurrentSelection(event);
+		this.compilationUnit = (ICompilationUnit) selection.getFirstElement();
 	}
 
 	public String getAbsolutePath() {
