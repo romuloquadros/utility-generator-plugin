@@ -6,7 +6,6 @@ import java.net.URLClassLoader;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
@@ -16,18 +15,15 @@ import org.eclipse.core.runtime.Platform;
 import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.launching.JavaRuntime;
-import org.eclipse.jface.viewers.IStructuredSelection;
-import org.eclipse.ui.handlers.HandlerUtil;
 
 public class FixtureGeneratorClassLoader {
 
 	private ICompilationUnit compilationUnit;
 
-	public FixtureGeneratorClassLoader(ExecutionEvent event) {
-		IStructuredSelection selection = (IStructuredSelection) HandlerUtil.getCurrentSelection(event);
-		this.compilationUnit = (ICompilationUnit) selection.getFirstElement();
+	public FixtureGeneratorClassLoader(ICompilationUnit iCompilationUnit) {
+		this.compilationUnit = iCompilationUnit;
 	}
-
+	
 	public String getAbsolutePath() {
 		IResource resource = getCompilationUnitResource();
 		return resource.getProject().getLocation().toFile().getAbsolutePath() + File.separator;

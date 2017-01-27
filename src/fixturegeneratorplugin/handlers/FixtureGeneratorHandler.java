@@ -3,7 +3,11 @@ package fixturegeneratorplugin.handlers;
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
+import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.jface.viewers.ISelection;
+import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.handlers.HandlerUtil;
 
@@ -33,23 +37,28 @@ public class FixtureGeneratorHandler extends AbstractHandler {
 		IWorkbenchWindow window = HandlerUtil.getActiveWorkbenchWindowChecked(event);
 
 		try {
-			FixtureGeneratorClassLoader loader = new FixtureGeneratorClassLoader(event);
+			IWorkbenchPage activePage = window.getActivePage();
+			ISelection selection = activePage.getSelection();
+			IStructuredSelection structuredSelection = (IStructuredSelection) selection;
+			ICompilationUnit compilationUnit = (ICompilationUnit) structuredSelection.getFirstElement();
+
+			FixtureGeneratorClassLoader loader = new FixtureGeneratorClassLoader(compilationUnit);
 			FixtureConfiguration config = new FixtureConfiguration();
 			config.setMethodPrefix("com");
-			
+
 			config.setRootPath(loader.getAbsolutePath() + config.getRootPath());
 
 			ClassGenerator classGenerator = new ClassGenerator(config);
 
 			classGenerator.generate(loader.loadSelectedClass());
-			
+
 			loader.refresh();
-			
+
 			MessageDialog.openInformation(window.getShell(), "Success", "Fixture generated.");
 		} catch (Exception e) {
-			MessageDialog.openInformation(window.getShell(), "Error", "Error while generating fixture. " + e.getMessage());
+			MessageDialog.openInformation(window.getShell(), "Error",
+					"Error while generating fixture. " + e.getMessage());
 		}
-
 		return null;
 	}
 }

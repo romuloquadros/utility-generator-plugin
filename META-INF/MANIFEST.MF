@@ -2,14 +2,17 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: FixtureGeneratorPlugin
 Bundle-SymbolicName: FixtureGeneratorPlugin;singleton:=true
-Bundle-Version: 1.0.0
+Bundle-Version: 1.0.0.qualifier
+Bundle-ClassPath: lib/fixture-generator-1.0.0.jar,
+ .
 Bundle-Activator: fixturegeneratorplugin.Activator
+Export-Package: fixturegeneratorplugin,
+ fixturegeneratorplugin.classloader,
+ fixturegeneratorplugin.handlers
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-ActivationPolicy: lazy
-Bundle-ClassPath: lib/fixture-generator-1.0.0.jar,
- .
 Import-Package: org.eclipse.core.resources,
  org.eclipse.jdt.core,
  org.eclipse.jdt.launching
