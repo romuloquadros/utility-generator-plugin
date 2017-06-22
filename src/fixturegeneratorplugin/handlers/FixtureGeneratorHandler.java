@@ -3,18 +3,15 @@ package fixturegeneratorplugin.handlers;
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
-import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jface.dialogs.MessageDialog;
-import org.eclipse.jface.viewers.ISelection;
-import org.eclipse.jface.viewers.IStructuredSelection;
-import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.handlers.HandlerUtil;
 
 import com.fixture.generator.builder.ClassGenerator;
 import com.fxture.generator.configuration.FixtureConfiguration;
 
-import fixturegeneratorplugin.classloader.FixtureGeneratorClassLoader;
+import fixturegeneratorplugin.classloader.GeneratorClassLoader;
+import fixturegeneratorplugin.factory.GeneratorClassLoaderFactory;
 
 /**
  * Our sample handler extends AbstractHandler, an IHandler base class.
@@ -35,14 +32,9 @@ public class FixtureGeneratorHandler extends AbstractHandler {
 	 */
 	public Object execute(ExecutionEvent event) throws ExecutionException {
 		IWorkbenchWindow window = HandlerUtil.getActiveWorkbenchWindowChecked(event);
-
 		try {
-			IWorkbenchPage activePage = window.getActivePage();
-			ISelection selection = activePage.getSelection();
-			IStructuredSelection structuredSelection = (IStructuredSelection) selection;
-			ICompilationUnit compilationUnit = (ICompilationUnit) structuredSelection.getFirstElement();
 
-			FixtureGeneratorClassLoader loader = new FixtureGeneratorClassLoader(compilationUnit);
+			GeneratorClassLoader loader = GeneratorClassLoaderFactory.create(window.getActivePage());
 			FixtureConfiguration config = new FixtureConfiguration();
 			config.setMethodPrefix("com");
 
@@ -50,7 +42,7 @@ public class FixtureGeneratorHandler extends AbstractHandler {
 
 			ClassGenerator classGenerator = new ClassGenerator(config);
 
-			classGenerator.generate(loader.loadSelectedClass());
+			classGenerator.generateFixture(loader.loadSelectedClass());
 
 			loader.refresh();
 
