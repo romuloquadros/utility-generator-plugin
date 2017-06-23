@@ -2,6 +2,7 @@ package fixturegeneratorplugin.popup.actions;
 
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IActionDelegate;
@@ -12,6 +13,8 @@ import org.eclipse.ui.IWorkbenchPart;
 import com.fixture.generator.builder.ClassGenerator;
 import com.fxture.generator.configuration.FixtureConfiguration;
 
+import fixturegeneratorplugin.Activator;
+import fixturegeneratorplugin.Preferences;
 import fixturegeneratorplugin.classloader.GeneratorClassLoader;
 import fixturegeneratorplugin.factory.GeneratorClassLoaderFactory;
 
@@ -40,9 +43,13 @@ public class GenerateFixtureAction implements IObjectActionDelegate {
 	 */
 	public void run(IAction action) {
 		try {
+			IPreferenceStore preferenceStore = Activator.getDefault().getPreferenceStore();
+			String methodPrefix = preferenceStore.getString(Preferences.METHOD_PREFIX);
+
 			GeneratorClassLoader loader = GeneratorClassLoaderFactory.create(activePage);
+
 			FixtureConfiguration config = new FixtureConfiguration();
-			config.setMethodPrefix("com");
+			config.setMethodPrefix(methodPrefix);
 
 			config.setRootPath(loader.getAbsolutePath() + config.getRootPath());
 

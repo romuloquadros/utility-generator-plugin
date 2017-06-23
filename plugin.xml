@@ -61,4 +61,27 @@
         </menu>
       </menuContribution>
    </extension>
+    <extension
+          point="org.eclipse.ui.preferencePages">
+      <page id="FixtureGeneratorPlugin.preferecePage.general"
+	    class="fixturegeneratorplugin.preferences.ConfigPreferencePage"
+            name="Generators">
+       </page>
+       <page
+         id="FixtureGeneratorPlugin.preferecePage.fixturePage"
+	    class="fixturegeneratorplugin.preferences.FixtureConfigPreferencePage"
+            name="Fixture"
+         category="FixtureGeneratorPlugin.preferecePage.general">
+      </page>
+       <page
+         id="FixtureGeneratorPlugin.preferecePage.mapperPage"
+	    class="fixturegeneratorplugin.preferences.MapperConfigPreferencePage"
+            name="Mappers"
+         category="FixtureGeneratorPlugin.preferecePage.general">
+      </page>
+    </extension>
+    <extension
+          point="org.eclipse.core.runtime.preferences">
+          <initializer class="fixturegeneratorplugin.preferences.initializers.MapperConfigPreferenceInitializer"/>
+    </extension>
 </plugin>
