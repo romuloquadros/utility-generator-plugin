@@ -5,33 +5,33 @@
    <extension point="org.eclipse.ui.commands">
       <category
             name="Mapper Test Generator"
-            id="FixtureGeneratorPlugin.commands.mapper" />
+            id="UtilityGeneratorPlugin.commands.mapper" />
       <category
             name="Fixture Generator"
-            id="FixtureGeneratorPlugin.commands.fixture" />
+            id="UtilityGeneratorPlugin.commands.fixture" />
       <command
             name="Fixture Generator"
-            categoryId="FixtureGeneratorPlugin.commands.category"
-            id="FixtureGeneratorPlugin.commands.fixtureCommand" />
+            categoryId="UtilityGeneratorPlugin.commands.category"
+            id="UtilityGeneratorPlugin.commands.fixtureCommand" />
       <command
             name="Mapper Test Generator"
-            categoryId="FixtureGeneratorPlugin.commands.mapper"
-            id="FixtureGeneratorPlugin.commands.mapperCommand" />
+            categoryId="UtilityGeneratorPlugin.commands.mapper"
+            id="UtilityGeneratorPlugin.commands.mapperCommand" />
    </extension>
    <extension point="org.eclipse.ui.handlers">
       <handler
-            commandId="FixtureGeneratorPlugin.commands.fixtureCommand"
-            class="fixturegeneratorplugin.handlers.FixtureGeneratorHandler" />
+            commandId="UtilityGeneratorPlugin.commands.fixtureCommand"
+            class="utilitygeneratorplugin.handlers.FixtureGeneratorHandler" />
       <handler
-            commandId="FixtureGeneratorPlugin.commands.mapperCommand"
-            class="fixturegeneratorplugin.handlers.MapperTestGeneratorHandler" />
+            commandId="UtilityGeneratorPlugin.commands.mapperCommand"
+            class="utilitygeneratorplugin.handlers.MapperTestGeneratorHandler" />
    </extension>
     <extension point="org.eclipse.ui.menus">
       <menuContribution locationURI="popup:org.eclipse.jdt.ui.PackageExplorer">
       	<menu id="generator"
       		label="Generators">
             <command
-                  commandId="FixtureGeneratorPlugin.commands.fixtureCommand"
+                  commandId="UtilityGeneratorPlugin.commands.fixtureCommand"
                   id="TestPopupMenu.menus.fixtureCommand"
                   mnemonic="G">
                     <visibleWhen>
@@ -45,7 +45,7 @@
          			</visibleWhen>
             </command>
             <command
-                  commandId="FixtureGeneratorPlugin.commands.mapperCommand"
+                  commandId="UtilityGeneratorPlugin.commands.mapperCommand"
                   id="TestPopupMenu.menus.mapperCommand"
                   mnemonic="H">
                     <visibleWhen>
@@ -63,25 +63,25 @@
    </extension>
     <extension
           point="org.eclipse.ui.preferencePages">
-      <page id="FixtureGeneratorPlugin.preferecePage.general"
-	    class="fixturegeneratorplugin.preferences.ConfigPreferencePage"
+      <page id="UtilityGeneratorPlugin.preferecePage.general"
+	    class="utilitygeneratorplugin.preferences.ConfigPreferencePage"
             name="Generators">
        </page>
        <page
-         id="FixtureGeneratorPlugin.preferecePage.fixturePage"
-	    class="fixturegeneratorplugin.preferences.FixtureConfigPreferencePage"
+         id="UtilityGeneratorPlugin.preferecePage.fixturePage"
+	    class="utilitygeneratorplugin.preferences.FixtureConfigPreferencePage"
             name="Fixture"
-         category="FixtureGeneratorPlugin.preferecePage.general">
+         category="UtilityGeneratorPlugin.preferecePage.general">
       </page>
        <page
-         id="FixtureGeneratorPlugin.preferecePage.mapperPage"
-	    class="fixturegeneratorplugin.preferences.MapperConfigPreferencePage"
+         id="UtilityGeneratorPlugin.preferecePage.mapperPage"
+	    class="utilitygeneratorplugin.preferences.MapperConfigPreferencePage"
             name="Mappers"
-         category="FixtureGeneratorPlugin.preferecePage.general">
+         category="UtilityGeneratorPlugin.preferecePage.general">
       </page>
     </extension>
     <extension
           point="org.eclipse.core.runtime.preferences">
-          <initializer class="fixturegeneratorplugin.preferences.initializers.MapperConfigPreferenceInitializer"/>
+          <initializer class="utilitygeneratorplugin.preferences.initializers.MapperConfigPreferenceInitializer"/>
     </extension>
 </plugin>
